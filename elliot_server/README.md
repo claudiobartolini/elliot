@@ -1,4 +1,5 @@
-The elliot server is a basic Flask application that implements the API endpoints described in the YAML file:
+The elliot server is a basic Flask application that implements the API endpoints described in server.yml https://app.swaggerhub.com/apis/CLAUDIOLUISBARTOLINI_1/elliot-recommender_system_api/1.0.0
+
 ### Explanation
 
 1. **Upload Dataset**:
