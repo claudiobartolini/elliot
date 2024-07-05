@@ -1,0 +1,141 @@
+openapi: 3.0.1
+info:
+  title: Elliot Recommender System API
+  description: API for managing and interacting with the Elliot Recommender System.
+  version: 1.0.0
+servers:
+  - url: https://api.your-saas.com/v1
+    description: Production server
+  - url: https://sandbox.api.your-saas.com/v1
+    description: Sandbox server
+paths:
+  /datasets:
+    post:
+      summary: Upload a new dataset
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Dataset uploaded successfully
+  /experiments:
+    post:
+      summary: Create a new experiment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                dataset_id:
+                  type: string
+                config:
+                  type: object
+                  description: Configuration for the experiment
+      responses:
+        '201':
+          description: Experiment created successfully
+  /experiments/{experiment_id}:
+    get:
+      summary: Get experiment results
+      parameters:
+        - name: experiment_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Experiment results
+    delete:
+      summary: Delete an experiment
+      parameters:
+        - name: experiment_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Experiment deleted successfully
+  /recommendations:
+    post:
+      summary: Generate recommendations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                model_id:
+                  type: string
+                top_n:
+                  type: integer
+      responses:
+        '200':
+          description: Recommendations generated successfully
+  /models:
+    post:
+      summary: Train a new model
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                dataset_id:
+                  type: string
+                config:
+                  type: object
+                  description: Configuration for model training
+      responses:
+        '201':
+          description: Model training initiated
+  /models/{model_id}:
+    get:
+      summary: Get model details
+      parameters:
+        - name: model_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Model details
+    delete:
+      summary: Delete a model
+      parameters:
+        - name: model_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Model deleted successfully
+  /metrics:
+    get:
+      summary: Retrieve evaluation metrics
+      parameters:
+        - name: experiment_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Evaluation metrics retrieved successfully
+
